@@ -1,0 +1,121 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "OpenAPI definition",
+        "version": "v0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080",
+            "description": "Generated server url"
+        }
+    ],
+    "paths": {
+        "/api/alumnos": {
+            "post": {
+                "tags": [
+                    "alumno-controller"
+                ],
+                "operationId": "grabarAlumno",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AlumnoRequest"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/api/alumnos/activos": {
+            "get": {
+                "tags": [
+                    "alumno-controller"
+                ],
+                "operationId": "obtenerAlumnosActivos",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/AlumnoResponse"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "AlumnoRequest": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "nombre": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "apellido": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "estado": {
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^(activo|inactivo)$"
+                    },
+                    "edad": {
+                        "type": "integer",
+                        "format": "int32",
+                        "maximum": 100,
+                        "minimum": 3
+                    }
+                },
+                "required": [
+                    "apellido",
+                    "edad",
+                    "estado",
+                    "id",
+                    "nombre"
+                ]
+            },
+            "AlumnoResponse": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "nombre": {
+                        "type": "string"
+                    },
+                    "apellido": {
+                        "type": "string"
+                    },
+                    "estado": {
+                        "type": "string"
+                    },
+                    "edad": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            }
+        }
+    }
+}
